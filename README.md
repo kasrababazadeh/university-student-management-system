@@ -23,7 +23,7 @@ A simple console-based application written in C++ for managing student records, 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/student-management-system.git
+   git clone https://github.com/kasrababazadeh/student-management-system
 
 2. Navigate to the project directory:
 
