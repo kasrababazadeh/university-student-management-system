@@ -4,11 +4,22 @@
 #include <algorithm>
 #include <limits> // for numeric_limits
 
+#ifdef _WIN32
+    #include <windows.h>
+    void clearConsole() {
+        system("cls");
+    }
+#else
+    void clearConsole() {
+        system("clear");
+    }
+#endif
+
 using namespace std;
 
 // Constants
 const int MAX_STUDENTS = 100;
-const int MAX_SUBJECTS = 50;
+// const int MAX_SUBJECTS = 50; Note: unused const
 
 // Class to represent a Student
 class Student {
@@ -42,6 +53,10 @@ private:
 public:
     // Add a student to the list
     void addStudent(const Student& student) {
+        if (students.size() >= MAX_STUDENTS) {
+            cerr << "Cannot add more students. Maximum limit reached.\n";
+            return;
+        }
         students.push_back(student);
     }
 
@@ -152,8 +167,9 @@ int main() {
 
 // Function to log in
 void login(StudentManager& manager) {
-    system("cls");
+    clearConsole();
     string username, password;
+    // login details
     const string correctUsername = "admin";
     const string correctPassword = "5648";
 
@@ -175,7 +191,7 @@ void login(StudentManager& manager) {
 void displayMenu(StudentManager& manager) {
     char choice;
     do {
-        system("cls");
+        clearConsole();
         cout << "1) Insert Student\n"
              << "2) Display Average Grade\n"
              << "3) Display Flunked Students\n"
@@ -214,12 +230,12 @@ void displayMenu(StudentManager& manager) {
 // Log out
 void logout() {
     cout << "Logging out..." << endl;
-    exit(0);
+    return; // safer than exit(0)
 }
 
 // Enter student data
 void enterStudentData(StudentManager& manager) {
-    system("cls");
+    clearConsole();
     string firstName, lastName;
     int studentNumber;
     double dynamicMark, physicMark, andisheMark, azphysicMark;
@@ -246,7 +262,7 @@ void enterStudentData(StudentManager& manager) {
 
 // Display average grades for all students
 void displayAverageGrade(const StudentManager& manager) {
-    system("cls");
+    clearConsole();
     int studentNumber;
     cout << "Enter student number: ";
     cin >> studentNumber;
@@ -256,7 +272,7 @@ void displayAverageGrade(const StudentManager& manager) {
 
 // Display the number of flunked students
 void displayFlunkedStudents(const StudentManager& manager) {
-    system("cls");
+    clearConsole();
     char subject;
     cout << "Enter subject (D for Dynamic, P for Physic, A for Andishe, Z for Az Physic): ";
     cin >> subject;
@@ -268,7 +284,7 @@ void displayFlunkedStudents(const StudentManager& manager) {
 
 // Display max and min marks for a subject
 void displayMaxMinMarks(const StudentManager& manager) {
-    system("cls");
+    clearConsole();
     char subject;
     cout << "Enter subject (D for Dynamic, P for Physic, A for Andishe, Z for Az Physic): ";
     cin >> subject;
@@ -278,7 +294,7 @@ void displayMaxMinMarks(const StudentManager& manager) {
 
 // Display average mark for a subject
 void displaySubjectAverage(const StudentManager& manager) {
-    system("cls");
+    clearConsole();
     char subject;
     cout << "Enter subject (D for Dynamic, P for Physic, A for Andishe, Z for Az Physic): ";
     cin >> subject;
